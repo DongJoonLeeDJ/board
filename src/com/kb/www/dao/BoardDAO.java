@@ -64,13 +64,14 @@ public class BoardDAO {
         return list;
     }
 
-    public ArticleVo getArticleDetail(String num) {
+    public ArticleVo getArticleDetail(int numInt) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         ArticleVo vo = new ArticleVo();
         //데이터 담기
         try {
-            pstmt = con.prepareStatement("select * from board where num=" + num);
+            pstmt = con.prepareStatement("select * from board where num=?");
+            pstmt.setInt(1,numInt);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 vo.setArticleNum(rs.getInt("num"));
@@ -85,6 +86,22 @@ public class BoardDAO {
             e.printStackTrace();
         } finally {
             close(rs);
+            close(pstmt);
+        }
+        return vo;
+    }
+
+    //글 쓰기
+    public ArticleVo getArticleWrite() {
+        PreparedStatement pstmt = null;
+        ArticleVo vo = new ArticleVo();
+        //데이터 담기
+        try {
+            pstmt = con.prepareStatement("insert into board values(?,?,?,?,?,?)");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
             close(pstmt);
         }
         return vo;

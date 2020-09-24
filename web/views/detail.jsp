@@ -6,6 +6,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <style>
+
+    </style>
 </head>
 <body>
 <table style="border: 1px solid cadetblue; text-align: center; margin: auto">
@@ -26,5 +29,6 @@
         <td><%=vo.getArticleContent()%></td>
     </tr>
 </table>
+<button onclick="history.back()">뒤로 가기</button>
 </body>
 </html>

@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <script>
         function showDetail(num) {
-            location.href = "detail?num=" + num;
+            location.href = "/detail?num=" + num;
         }
 
         function showWrite() {
@@ -49,6 +49,6 @@
         <td onclick="showWrite()">글쓰기</td>
     </tr>
 </table>
-<a href="write">글쓰기</a>
+<a href="write">a 태그 글쓰기</a>
 </body>
 </html>

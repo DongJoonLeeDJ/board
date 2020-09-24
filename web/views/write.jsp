@@ -1,4 +1,8 @@
+<%@ page import="com.kb.www.vo.ArticleVo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    ArticleVo vo = (ArticleVo) request.getAttribute("write");
+%>
 <html>
 <head>
     <meta charset="UTF-8">

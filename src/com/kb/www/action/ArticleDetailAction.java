@@ -13,9 +13,12 @@ public class ArticleDetailAction implements Action {
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         BoardService svc = new BoardService();
 
-        //DTO만들어서 글 번호를 service에 보냄
+        //list.jsp
         String num = request.getParameter("num");
-        ArticleVo vo = svc.getArticleDetail(num);
+        //글 번호 숫자로 변환
+        int numInt = Integer.parseInt(num);
+        //VO만들어서 글 번호를 service에 보냄
+        ArticleVo vo = svc.getArticleDetail(numInt);
 
         ActionForward forward = new ActionForward();
         request.setAttribute("detail",vo);

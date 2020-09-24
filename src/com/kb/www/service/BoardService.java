@@ -25,14 +25,27 @@ public class BoardService {
     }
 
     //글 내용
-    public ArticleVo getArticleDetail(String num){
+    public ArticleVo getArticleDetail(int numInt){
         //세팅
         BoardDAO dao = BoardDAO.getInstance();
         Connection con = getConnection();
         dao.setConnection(con);
 
         //DAO에 넘김
-        ArticleVo vo = dao.getArticleDetail(num);
+        ArticleVo vo = dao.getArticleDetail(numInt);
+        close(con);
+
+        return vo;
+    }
+
+    //글쓰기
+    public ArticleVo getArticleWrite() {
+        BoardDAO dao = BoardDAO.getInstance();
+        Connection con = getConnection();
+        dao.setConnection(con);
+
+        //DAO에 넘김
+        ArticleVo vo =dao.getArticleWrite();
         close(con);
 
         return vo;
