@@ -49,6 +49,6 @@
         <td onclick="showWrite()">글쓰기</td>
     </tr>
 </table>
-<a href="write" >글쓰기</a>
+<a href="write">글쓰기</a>
 </body>
 </html>
