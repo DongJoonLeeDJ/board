@@ -6,18 +6,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-<style>
-    h1 {
-        width: 200px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
 </head>
 <body>
-<h1>글 쓰기</h1>
-<form method="post" action="list">
+<form method="post" action="write">
     <table style="border: 1px solid cadetblue; text-align: center; margin: auto">
+        <thead><td>글 쓰기</td></thead>
         <tr>
             <td><input type="text" placeholder="글 제목" name="title" maxlength="50" style="width: 400px"></td>
         </tr>

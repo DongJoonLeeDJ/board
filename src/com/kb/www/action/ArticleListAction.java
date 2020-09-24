@@ -15,6 +15,7 @@ public class ArticleListAction implements Action {
         BoardService svc = new BoardService();
 
         //service의 getArticleList로 리스트 불러오기 떠넘김
+        //ArrayList<ArticleVo> articleList = service의 list
         ArrayList<ArticleVo> articleList = svc.getArticleList();
 
         ActionForward forward = new ActionForward();

@@ -92,18 +92,22 @@ public class BoardDAO {
     }
 
     //글 쓰기
-    public ArticleVo getArticleWrite() {
+    public int getArticleWrite(String title,String content) {
         PreparedStatement pstmt = null;
-        ArticleVo vo = new ArticleVo();
-        //데이터 담기
-        try {
-            pstmt = con.prepareStatement("insert into board values(?,?,?,?,?,?)");
 
-        } catch (Exception e) {
+//        ArticleVo vo = new ArticleVo();
+        try {
+            pstmt = con.prepareStatement("insert into board values (?,?,?,?)");
+            pstmt.setInt(1,3);
+            pstmt.setString(2,title);
+            pstmt.setString(3,content);
+            pstmt.setInt(4,4);
+            return pstmt.executeUpdate();
+        }catch (Exception e){
             e.printStackTrace();
-        } finally {
+        }finally {
             close(pstmt);
         }
-        return vo;
+        return -1;
     }
 }
