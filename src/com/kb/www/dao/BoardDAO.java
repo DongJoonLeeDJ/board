@@ -9,7 +9,9 @@ import static com.kb.www.common.JdbcUtil.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BoardDAO {
     private Connection con;
@@ -101,6 +103,44 @@ public class BoardDAO {
             pstmt = con.prepareStatement("insert into board(subject,content) values (?,?) ");
             pstmt.setString(1, vo.getArticleTitle());
             pstmt.setString(2, vo.getArticleContent());
+            result = pstmt.executeUpdate();  //insert된 컬럼 수를 return
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(pstmt);
+        }
+        return result;
+    }
+
+    //글 삭제
+    public int deleteArticle(int numInt) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        //데이터 담기
+        try {
+            pstmt = con.prepareStatement("delete from board where num=?");
+            pstmt.setInt(1, numInt);
+            result = pstmt.executeUpdate();  //insert된 컬럼 수를 return
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(pstmt);
+        }
+        return result;
+    }
+
+    public int updateArticle(ArticleVo vo) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        //데이터 담기
+        try {
+            pstmt = con.prepareStatement("update board set subject=?,content=?,updateDate=? where num=?");
+            pstmt.setString(1, vo.getArticleTitle());
+            pstmt.setString(2, vo.getArticleContent());
+            pstmt.setString(3,
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); //현재날짜로 수정날짜
+            pstmt.setInt(4,vo.getArticleNum());
             result = pstmt.executeUpdate();  //insert된 컬럼 수를 return
 
         } catch (Exception e) {

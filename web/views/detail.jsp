@@ -30,5 +30,7 @@
     </tr>
 </table>
 <button onclick="history.back()">뒤로 가기</button>
+<button onclick="location.href='/update.do?num=<%=vo.getArticleNum()%>'">수정</button>
+<button onclick="location.href='/delete.do?num=<%=vo.getArticleNum()%>'">삭제</button>
 </body>
 </html>

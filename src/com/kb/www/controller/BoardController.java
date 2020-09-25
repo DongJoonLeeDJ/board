@@ -1,9 +1,6 @@
 package com.kb.www.controller;
 
-import com.kb.www.action.ArticleDetailAction;
-import com.kb.www.action.ArticleListAction;
-import com.kb.www.action.ArticleRegisterAction;
-import com.kb.www.action.ArticleWriteAction;
+import com.kb.www.action.*;
 import com.kb.www.common.Action;
 import com.kb.www.common.ActionForward;
 
@@ -54,6 +51,29 @@ public class BoardController extends HttpServlet {
             }
         } else if(command.equals("/register.do")) {
             action = new ArticleRegisterAction();
+            try{
+                forward = action.execute(request,response);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        else if(command.equals("/update.do")) {
+//            action = new ArticleUpdateAction();
+            try{
+                forward = action.execute(request,response);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        else if(command.equals("/delete.do")) {
+            action = new ArticleDeleteAction();
+            try{
+                forward = action.execute(request,response);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        } else if(command.equals("/updateProc.do")) {
+            action = new ArticleUpdateProcAction();
             try{
                 forward = action.execute(request,response);
             }catch (Exception e){

@@ -13,12 +13,12 @@ public class ArticleWriteAction implements Action {
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         BoardService svc = new BoardService();
 
-        ArticleVo vo = new ArticleVo();
+/*        ArticleVo vo = new ArticleVo();
         vo.setArticleTitle(request.getParameter("title"));
-        vo.setArticleContent(request.getParameter("content"));
+        vo.setArticleContent(request.getParameter("content"));*/
 
         ActionForward forward = new ActionForward();
-        request.setAttribute("write", vo);
+//        request.setAttribute("write", vo);
         forward.setPath("/views/write.jsp");
 
         return forward;
