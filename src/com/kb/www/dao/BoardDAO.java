@@ -35,7 +35,7 @@ public class BoardDAO {
         this.con = con;
     }
 
-    //글 목록 확인
+    //글 목록 쿼리
     public ArrayList<ArticleVo> getArticleList() {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -66,6 +66,7 @@ public class BoardDAO {
         return list;
     }
 
+    //글 내용 쿼리
     public ArticleVo getArticleDetail(int numInt) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -94,7 +95,7 @@ public class BoardDAO {
         return vo;
     }
 
-    //글 쓰기
+    //글 쓰기 쿼리
     public int insertArticle(ArticleVo vo) {
         PreparedStatement pstmt = null;
         int result = 0;
@@ -113,7 +114,7 @@ public class BoardDAO {
         return result;
     }
 
-    //글 삭제
+    //글 삭제 쿼리
     public int deleteArticle(int numInt) {
         PreparedStatement pstmt = null;
         int result = 0;
@@ -121,7 +122,7 @@ public class BoardDAO {
         try {
             pstmt = con.prepareStatement("delete from board where num=?");
             pstmt.setInt(1, numInt);
-            result = pstmt.executeUpdate();  //insert된 컬럼 수를 return
+            result = pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -130,6 +131,7 @@ public class BoardDAO {
         return result;
     }
 
+    //글 수정 쿼리
     public int updateArticle(ArticleVo vo) {
         PreparedStatement pstmt = null;
         int result = 0;
@@ -139,10 +141,9 @@ public class BoardDAO {
             pstmt.setString(1, vo.getArticleTitle());
             pstmt.setString(2, vo.getArticleContent());
             pstmt.setString(3,
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); //현재날짜로 수정날짜
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())); //현재날짜를 수정날짜로 변경
             pstmt.setInt(4,vo.getArticleNum());
             result = pstmt.executeUpdate();  //insert된 컬럼 수를 return
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
