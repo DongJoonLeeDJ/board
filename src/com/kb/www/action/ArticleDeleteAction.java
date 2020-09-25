@@ -16,12 +16,12 @@ public class ArticleDeleteAction implements Action {
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        String num = request.getParameter("num");   //list.jsp
+        String num = request.getParameter("num"); //삭제할 글 번호 받아오기
         //글 번호 유효성검사(1)-형변환 전,RegExp = 글 번호 유효성 검사
         if (num == null||num.equals("")|| !RegExp.checkString(PAGE_NUM,num)) {
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('잘못된 접근입니다.1');history.back();</script>");
+            out.println("<script>alert('잘못된 접근입니다.(1)');history.back();</script>");
             out.close();
             return null;
         }
@@ -31,7 +31,7 @@ public class ArticleDeleteAction implements Action {
         if(numInt<=0){
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('잘못된 접근입니다.2');history.back();</script>");
+            out.println("<script>alert('잘못된 접근입니다.(2)');history.back();</script>");
             out.close();
             return null;
         }
@@ -47,7 +47,8 @@ public class ArticleDeleteAction implements Action {
         }
         ActionForward forward = new ActionForward();
 //        request.setAttribute("detail", vo); 받아올거 없으므로 지움
-        forward.setPath("/views/list.jsp");
+        forward.setPath("/list.do");
+        forward.setRedirect(true);
 
         return forward;
     }

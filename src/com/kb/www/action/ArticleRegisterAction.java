@@ -37,7 +37,7 @@ public class ArticleRegisterAction implements Action {
         vo.setArticleContent(content);
 
         BoardService service = new BoardService();
-        //글 성공(true) , 실패(boolean)받음
+        //글쓰기 성공(true) , 실패(false) boolean값 받음
         if(!service.insertArticle(vo)) {
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
