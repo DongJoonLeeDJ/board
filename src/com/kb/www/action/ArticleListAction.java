@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ArticleListAction implements Action {
     @Override
-    public ActionForward execute(HttpServletRequest request, HttpServletResponse response){
+    public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
         BoardService svc = new BoardService();
 
         //service의 getArticleList로 리스트 불러오기 떠넘김

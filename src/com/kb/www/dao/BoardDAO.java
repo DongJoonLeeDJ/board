@@ -67,13 +67,14 @@ public class BoardDAO {
     public ArticleVo getArticleDetail(int numInt) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        ArticleVo vo = new ArticleVo();
+        ArticleVo vo = null;
         //데이터 담기
         try {
             pstmt = con.prepareStatement("select * from board where num=?");
-            pstmt.setInt(1,numInt);
+            pstmt.setInt(1, numInt);
             rs = pstmt.executeQuery();
             while (rs.next()) {
+                vo = new ArticleVo();     //글 조회 돼야 인스턴스 생성
                 vo.setArticleNum(rs.getInt("num"));
                 vo.setArticleTitle(rs.getString("subject"));
                 vo.setArticleContent(rs.getString("content"));
@@ -92,22 +93,21 @@ public class BoardDAO {
     }
 
     //글 쓰기
-    public int getArticleWrite(String title,String content) {
+    public int insertArticle(ArticleVo vo) {
         PreparedStatement pstmt = null;
-
-//        ArticleVo vo = new ArticleVo();
+        int result = 0;
+        //데이터 담기
         try {
-            pstmt = con.prepareStatement("insert into board values (?,?,?,?)");
-            pstmt.setInt(1,3);
-            pstmt.setString(2,title);
-            pstmt.setString(3,content);
-            pstmt.setInt(4,4);
-            return pstmt.executeUpdate();
-        }catch (Exception e){
+            pstmt = con.prepareStatement("insert into board(subject,content) values (?,?) ");
+            pstmt.setString(1, vo.getArticleTitle());
+            pstmt.setString(2, vo.getArticleContent());
+            result = pstmt.executeUpdate();  //insert된 컬럼 수를 return
+
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             close(pstmt);
         }
-        return -1;
+        return result;
     }
 }
