@@ -58,7 +58,7 @@ public class BoardController extends HttpServlet {
             }
         }
         else if(command.equals("/update.do")) {
-//            action = new ArticleUpdateAction();
+            action = new ArticleUpdateAction();
             try{
                 forward = action.execute(request,response);
             }catch (Exception e){
