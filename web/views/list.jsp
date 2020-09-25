@@ -9,12 +9,9 @@
     <meta charset="UTF-8">
     <script>
         function showDetail(num) {
-            location.href = "/detail?num=" + num;
+            location.href = "/detail.do?num=" + num;
         }
 
-        function showWrite() {
-            location.href = "write";
-        }
     </script>
 </head>
 <body>
@@ -45,10 +42,13 @@
         <td>게시글이 없습니다.</td>
     </tr>
     <% } %>
-    <tr>
-        <td onclick="showWrite()">글쓰기</td>
-    </tr>
+    <tr><td><button onclick="location.href='/write.do'">글쓰기</button></td></tr>
+
+    <%--<tr>--%>
+        <%--<td onclick="showWrite()">글쓰기</td>--%>
+    <%--</tr>--%>
 </table>
-<a href="write">a 태그 글쓰기</a>
+<a href="write.do">a 태그 글쓰기</a>
+
 </body>
 </html>

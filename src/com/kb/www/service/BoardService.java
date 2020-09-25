@@ -2,15 +2,15 @@ package com.kb.www.service;
 
 import com.kb.www.dao.BoardDAO;
 import com.kb.www.vo.ArticleVo;
-import static com.kb.www.common.JdbcUtil.close;
-import static com.kb.www.common.JdbcUtil.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import static com.kb.www.common.JdbcUtil.*;
+
 public class BoardService {
     //글 목록
-    public ArrayList<ArticleVo> getArticleList(){
+    public ArrayList<ArticleVo> getArticleList() {
         //세팅
         BoardDAO dao = BoardDAO.getInstance();
         Connection con = getConnection();
@@ -25,7 +25,7 @@ public class BoardService {
     }
 
     //글 내용
-    public ArticleVo getArticleDetail(int numInt){
+    public ArticleVo getArticleDetail(int numInt) {
         //세팅
         BoardDAO dao = BoardDAO.getInstance();
         Connection con = getConnection();
@@ -39,16 +39,26 @@ public class BoardService {
     }
 
     //글쓰기
-    public ArticleVo getArticleWrite(String title,String content) {
+    public boolean insertArticle(ArticleVo vo) {
+        //세팅
         BoardDAO dao = BoardDAO.getInstance();
         Connection con = getConnection();
         dao.setConnection(con);
+        //그냥 count넘겨도 되지만 boolean으로 함
+        boolean isSucess = false;
 
+        int count = dao.insertArticle(vo);
+        if (count > 0) {    //성공
+            commit(con);
+            isSucess = true;
+        } else {          //실패
+            rollback(con);
+            isSucess = false;
+        }
         //DAO에 넘김
-        int result = dao.getArticleWrite(title,content);
-
         close(con);
-
-        return vo;
+        return isSucess;
     }
+
+
 }
