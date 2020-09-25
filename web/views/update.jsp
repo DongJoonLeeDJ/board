@@ -30,7 +30,7 @@
     </script>
 </head>
 <body>
-<!-- onsubmit - submit누르면 checkData함수로 감-->
+<!-- onsubmit - submit누르면 checkData함수에서 데이터유효성 검사 후 servlet으로 감-->
 <form method="post" action="/updateProc.do" onsubmit="return checkData()">
     <table style="border: 1px solid cadetblue; text-align: center; margin: auto">
         <thead><td>글 쓰기</td></thead>
@@ -43,6 +43,7 @@
             <td><textarea id="content" name="content" placeholder="글 내용"
                           style="height: 350px; width: 500px"><%=vo.getArticleContent()%></textarea></td>
         </tr><tr>
+        <!--글 번호 숨겨서 담음-->
         <td><input type="hidden" value="<%=vo.getArticleNum()%>" name="num"></td>
     </tr>
         <tr>
