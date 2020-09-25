@@ -10,6 +10,6 @@
   <head>
   </head>
   <body>
-  <a href="list">목록보기</a>
+  <a href="/list.do">목록보기</a>
   </body>
 </html>
