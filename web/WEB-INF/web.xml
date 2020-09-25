@@ -3,11 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    <display-name>board2</display-name>
-    <servlet>
-        <servlet-name>HomeController</servlet-name>
-        <servlet-class>com.kb.www.controller.HomeController</servlet-class>
-    </servlet>
+    <display-name>board</display-name>
     <welcome-file-list>
         <welcome-file>/</welcome-file>
     </welcome-file-list>
