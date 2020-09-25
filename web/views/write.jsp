@@ -6,21 +6,46 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <title>글쓰기</title>
+    <!-- jQuery CDN -->
+    <script
+
+            src="https://code.jquery.com/jquery-3.5.1.slim.js"
+            integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM="
+            crossorigin="anonymous"></script>
+    <script>
+        function checkData() {
+            var title = $('#title').val();
+            if(!title) {
+                alert("제목을 입력하세요");
+                $('#title').focus();
+                return false;
+            }
+            var content = $('#content').val();
+            if(!content) {
+                alert("내용을 입력하세요");
+                $('#content').focus();
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
-<form method="post" action="write">
+<!-- onsubmit - submit누르면 checkData함수로 감-->
+<form method="post" action="/register.do" onsubmit="return checkData()">
     <table style="border: 1px solid cadetblue; text-align: center; margin: auto">
         <thead><td>글 쓰기</td></thead>
         <tr>
-            <td><input type="text" placeholder="글 제목" name="title" maxlength="50" style="width: 400px"></td>
+            <td><input type="text" id="title" name="title"
+                       maxlength="100" placeholder="글 제목" style="width: 400px"></td>
         </tr>
 
         <tr>
-            <td><textarea placeholder="글 내용" name="content" maxlength="2048"
+            <td><textarea id="content" name="content" placeholder="글 내용"
                           style="height: 350px; width: 500px"></textarea></td>
         </tr>
         <tr>
-            <td><input type="submit" value="글쓰기"></td>
+            <td><input type="submit" value="완료"></td>
         </tr>
     </table>
 </form>
