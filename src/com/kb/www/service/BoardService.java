@@ -74,7 +74,6 @@ public class BoardService {
             isSucess = true;
         } else {          //실패
             rollback(con);
-            isSucess = false;
         }
         //DAO에 넘김
         close(con);
@@ -94,7 +93,6 @@ public class BoardService {
             isSucess = true;
         } else {          //실패
             rollback(con);
-            isSucess = false;
         }
         //DAO에 넘김
         close(con);
