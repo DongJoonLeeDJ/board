@@ -38,13 +38,13 @@ public class ArticleDetailAction implements Action {
 
         BoardService svc = new BoardService();
         ArticleVo vo = svc.getArticleDetail(numInt); //VO만들어서 글 번호를 service에 보냄
-   /*     if(vo==null){
+        if(vo==null){
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<script>alert('잘못된 접근입니다.');history.back();</script>");
             out.close();
             return null;
-        }*/
+        }
 
         ActionForward forward = new ActionForward();
         request.setAttribute("detail", vo);
