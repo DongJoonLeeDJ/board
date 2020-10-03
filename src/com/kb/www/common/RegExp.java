@@ -8,7 +8,7 @@ public class RegExp {
     public static final int ARTICLE_TITLE = 1;
     public static final int ARTICLE_CONTENT = 2;
 
-    public static final String EXP_PAGE_NUM = "[0-9]$"; //숫자 비교
+    public static final String EXP_PAGE_NUM = "[0-9]*$"; //숫자 비교
     public static final String EXP_ARTICLE_TITLE = "^.{1,100}$"; //글 제목 100자까지 인지
     public static final String EXP_ARTICLE_CONTENT = "^.{1,65535}$"; //글 내용
 
