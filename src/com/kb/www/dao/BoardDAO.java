@@ -1,6 +1,8 @@
 package com.kb.www.dao;
 
 import com.kb.www.vo.ArticleVo;
+import com.kb.www.vo.MemberHistoryVo;
+import com.kb.www.vo.MemberVo;
 
 import javax.xml.transform.Result;
 
@@ -150,5 +152,73 @@ public class BoardDAO {
             close(pstmt);
         }
         return result;
+    }
+    //조회수
+    public int updateHitCount(int num) {
+        PreparedStatement pstmt = null;
+        int count = 0;
+        try {
+            pstmt = con.prepareStatement("update board set hit=hit+1 where num=?");
+            pstmt.setInt(1, num);
+            count = pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            close(pstmt);
+        }
+        return count;
+    }
+
+    //회원가입
+    public int insertMember(MemberVo vo){
+        PreparedStatement pstmt = null;
+        int count = 0;
+        try {
+            pstmt = con.prepareStatement("insert into member(id,pwd) value(?,?)");
+            pstmt.setString(1,vo.getId());
+            pstmt.setString(2,vo.getPwd());
+            count = pstmt.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            close(pstmt);
+        }
+        return count;
+    }
+
+    public int getMemberSequence(String id){
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int sq = 0;
+        try {
+            //vo의 getId에 해당하는 고유번호 조회
+            pstmt = con.prepareStatement("select sq from member where id=?");
+            pstmt.setString(1,id);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                sq = rs.getInt("sq");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            close(rs);
+            close(pstmt);
+        }
+        return sq;
+    }
+    public int insertMemberHistory(MemberHistoryVo vo){
+        PreparedStatement pstmt = null;
+        int count = 0;
+        try {
+            pstmt = con.prepareStatement("insert into member_history(mb_sq, evt_type) value(?,?)");
+            pstmt.setInt(1,vo.getMb_sq());
+            pstmt.setInt(2,vo.getEvt_type());
+            count = pstmt.executeUpdate();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            close(pstmt);
+        }
+        return count;
     }
 }

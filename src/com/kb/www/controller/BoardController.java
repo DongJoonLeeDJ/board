@@ -79,6 +79,21 @@ public class BoardController extends HttpServlet {
             }catch (Exception e){
                 e.printStackTrace();
             }
+        } else if(command.equals("/join.do")) {
+            action = new MemberJoinFormAction();
+            try{
+                forward = action.execute(request,response);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        else if(command.equals("/joinProc.do")) {
+            action = new MemberJoinProcAction();
+            try{
+                forward = action.execute(request,response);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
         if(forward!=null){
