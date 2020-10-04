@@ -1,7 +1,7 @@
 <%@ page import="com.kb.www.vo.ArticleVo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ArticleVo vo = (ArticleVo) request.getAttribute("update");
+    ArticleVo vo = (ArticleVo) request.getAttribute("vo");
 %>
 <html>
 <head>

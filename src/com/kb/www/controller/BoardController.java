@@ -17,7 +17,8 @@ public class BoardController extends HttpServlet {
     public BoardController() {
         super();
     }
-    protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+
+    protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
         String RequestURI = request.getRequestURI();
@@ -27,105 +28,116 @@ public class BoardController extends HttpServlet {
         ActionForward forward = null;
         Action action = null;
 
-        if(command.equals("/list.do")) {
+        if (command.equals("/list.do")) {
             action = new ArticleListAction();
-            try{
-                forward = action.execute(request,response);
-            }catch (Exception e){
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             //detailController 필요없이 조건문으로 바로 이동
-        } else if(command.equals("/detail.do")) {
+        } else if (command.equals("/detail.do")) {
             action = new ArticleDetailAction();
-            try{
-                forward = action.execute(request,response);
-            }catch (Exception e){
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/write.do")) {
+        } else if (command.equals("/write.do")) {
             action = new ArticleWriteAction();
-            try{
-                forward = action.execute(request,response);
-            }catch (Exception e){
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/register.do")) {
+        } else if (command.equals("/register.do")) {
             action = new ArticleRegisterAction();
-            try{
-                forward = action.execute(request,response);
-            }catch (Exception e){
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else if(command.equals("/update.do")) {
+        } else if (command.equals("/update.do")) {
             action = new ArticleUpdateAction();
-            try{
-                forward = action.execute(request,response);
-            }catch (Exception e){
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else if(command.equals("/delete.do")) {
+        } else if (command.equals("/delete.do")) {
             action = new ArticleDeleteAction();
-            try{
-                forward = action.execute(request,response);
-            }catch (Exception e){
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/updateProc.do")) {
+        } else if (command.equals("/updateProc.do")) {
             action = new ArticleUpdateProcAction();
-            try{
-                forward = action.execute(request,response);
-            }catch (Exception e){
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/join.do")) {
+        } else if (command.equals("/join.do")) {
             action = new MemberJoinFormAction();
-            try{
-                forward = action.execute(request,response);
-            }catch (Exception e){
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        else if(command.equals("/joinProc.do")) {
+        } else if (command.equals("/joinProc.do")) {
             action = new MemberJoinProcAction();
-            try{
-                forward = action.execute(request,response);
-            }catch (Exception e){
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (command.equals("/login.do")) {
+            action = new MemberLoginFormAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (command.equals("/loginProc.do")) {
+            action = new MemberLoginProcAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if (command.equals("/logout.do")) {
+            action = new MemberLogoutAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (command.equals("/history.do")) {
+            action = new MemberHistoryAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        if(forward!=null){
-            if(forward.isRedirect()) {
-                response.sendRedirect(forward.getPath());
-            }else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
-                dispatcher.forward(request,response);
+            if (forward != null) {
+                if (forward.isRedirect()) {
+                    response.sendRedirect(forward.getPath());
+                } else {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
+                    dispatcher.forward(request, response);
+                }
             }
         }
-        //이벤트 처리 컨트롤러
-       /* try {
-            forward = action.execute(request,response);
-        }catch (Exception e){
-            e.printStackTrace();
+        protected void doPost (HttpServletRequest request, HttpServletResponse response) throws
+        ServletException, IOException {
+            doProcess(request, response);
         }
-        //forward에 뭔가가 담겨있다면
-        if (forward!=null){
-            //Path구해서 이동
-            if(forward.isRedirect()){
-                response.sendRedirect(forward.getPath());
-            } else {
-                RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
-                dispatcher.forward(request,response);
-            }
-        }*/
-    }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doProcess(request,response);
-    }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doProcess(request,response);
+        protected void doGet (HttpServletRequest request, HttpServletResponse response) throws
+        ServletException, IOException {
+            doProcess(request, response);
+        }
     }
-}

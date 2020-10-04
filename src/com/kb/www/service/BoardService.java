@@ -5,6 +5,7 @@ import com.kb.www.vo.ArticleVo;
 import com.kb.www.vo.MemberHistoryVo;
 import com.kb.www.vo.MemberVo;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -55,7 +56,6 @@ public class BoardService {
         dao.setConnection(con);
         //그냥 count넘겨도 되지만 boolean으로 함
         boolean isSucess = false;
-
         int count = dao.insertArticle(vo);
         if (count > 0) {    //성공
             commit(con);
@@ -78,7 +78,7 @@ public class BoardService {
         //그냥 count넘겨도 되지만 boolean으로 함
         boolean isSucess = false;
 
-        int count = dao.deleteArticle(numInt);
+        int count = dao.deleteArticle(numInt);  //dao 호출
         if (count > 0) {    //성공
             commit(con);
             isSucess = true;
@@ -132,4 +132,83 @@ public class BoardService {
         return isSucess;
     }
 
+    //로그인할때 필요한 메소드
+    public MemberVo getMember(String id) {
+        BoardDAO dao = BoardDAO.getInstance();
+        Connection con = getConnection();
+        dao.setConnection(con);
+        MemberVo vo = dao.getMember(id); //dao에서 시퀀스,id,pwd 가져오기
+        close(con);
+        return vo;
+    }
+
+    //로그인
+    public boolean loginMember(MemberVo memberVo, MemberHistoryVo memberHistoryVo){
+        BoardDAO dao = BoardDAO.getInstance();
+        Connection con = getConnection();
+        dao.setConnection(con);
+        boolean isSucess=false;
+
+        int count_01=dao.updateLoginState(memberVo);
+        int count_02=dao.insertMemberHistory(memberHistoryVo);
+        if(count_01>0&&count_02>0){
+            commit(con);
+            isSucess = true;
+        }else{
+            rollback(con);
+        }
+        close(con);
+        return isSucess;
+    }
+    public boolean logoutMember(MemberVo memberVo, MemberHistoryVo memberHistoryVo){
+        BoardDAO dao = BoardDAO.getInstance();
+        Connection con = getConnection();
+        dao.setConnection(con);
+        boolean isSucess=false;
+
+        memberVo.setSq(dao.getMemberSequence(memberVo.getId())); //아이디로 vo의 시퀀스가져와서
+        memberHistoryVo.setMb_sq(memberVo.getSq()); //히스토리에 저장
+
+        int count_01=dao.updateLoginState(memberVo);
+        int count_02=dao.insertMemberHistory(memberHistoryVo);
+        if(count_01>0&&count_02>0){
+            commit(con);
+            isSucess = true;
+        }else{
+            rollback(con);
+        }
+        close(con);
+        return isSucess;
+    }
+    //글 등록할 때
+    public int getMemberSequence(String id){
+        BoardDAO dao = BoardDAO.getInstance();
+        Connection con = getConnection();
+        dao.setConnection(con);
+        int sq = dao.getMemberSequence(id); //dao에서 가꼬옴
+        close(con);
+        return sq;
+    }
+
+    //작성자 id구하는 메소드
+    public String getWriterId(int num){
+        BoardDAO dao = BoardDAO.getInstance();
+        Connection con = getConnection();
+        dao.setConnection(con);
+
+        String id=dao.getWriterId(num); //dao에서 구함
+
+        close(con);
+        return id;
+    }
+
+    //히스토리 구하는 메소드
+    public ArrayList<MemberHistoryVo> getMemberHistory(String id){
+        BoardDAO dao = BoardDAO.getInstance();
+        Connection con = getConnection();
+        dao.setConnection(con);
+        ArrayList<MemberHistoryVo> list = dao.getMemberHistory(id); //dao호출
+        close(con);
+        return list;
+    }
 }

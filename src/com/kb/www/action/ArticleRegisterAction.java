@@ -2,6 +2,7 @@ package com.kb.www.action;
 
 import com.kb.www.common.Action;
 import com.kb.www.common.ActionForward;
+import com.kb.www.common.LoginManager;
 import com.kb.www.common.RegExp;
 import com.kb.www.service.BoardService;
 import com.kb.www.vo.ArticleVo;
@@ -15,6 +16,16 @@ import static com.kb.www.common.RegExp.*;
 public class ArticleRegisterAction implements Action {
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response)throws Exception {
+
+        LoginManager lm = LoginManager.getInstance();
+        String id = lm.getMemberId(request.getSession());
+        if(id == null) {
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인이 필요한 서비스 입니다.');location.href='/login.do';</script>");
+            out.close();
+            return null;
+        }
 
         //view에서 제목,내용 받아옴
         String title = request.getParameter("title");
@@ -31,12 +42,13 @@ public class ArticleRegisterAction implements Action {
             return null;
         }
 
+        BoardService service = new BoardService();
         //vo에 담음
         ArticleVo vo = new ArticleVo();
         vo.setArticleTitle(title);
         vo.setArticleContent(content);
+        vo.setMb_sq(service.getMemberSequence(id));
 
-        BoardService service = new BoardService();
         //글쓰기 성공(true) , 실패(false) boolean값 받음
         if(!service.insertArticle(vo)) {
             response.setContentType("text/html;charset=UTF-8");

@@ -27,15 +27,11 @@
     <% if (list.size() > 0) {%>
     <% for (int i = 0; i < list.size(); i++) { %>
     <tr>
-        <td><%=list.get(i).getArticleNum()%>
-        </td>
-        <td onclick="showDetail(<%=list.get(i).getArticleNum()%>)"><%=list.get(i).getArticleTitle()%>
-        </td>
-        <td><%=list.get(i).getHit()%>
-        </td>
-        <td><%=list.get(i).getWriteDate()%>
-        </td>
-        <!--커밋 테스트 2-->
+        <td><%=list.get(i).getArticleNum()%></td>
+        <td onclick="showDetail(<%=list.get(i).getArticleNum()%>)"><%=list.get(i).getArticleTitle()%></td>
+        <td><%=list.get(i).getHit()%></td>
+        <td><%=list.get(i).getId() %></td>
+        <td><%=list.get(i).getWriteDate()%></td>
     </tr>
     <% } %>
     <% } else { %>
@@ -43,13 +39,14 @@
         <td>게시글이 없습니다.</td>
     </tr>
     <% } %>
-    <tr><td><button onclick="location.href='/write.do'">글쓰기</button></td></tr>
-
-    <%--<tr>--%>
-        <%--<td onclick="showWrite()">글쓰기</td>--%>
-    <%--</tr>--%>
+    <tr>
+        <td>
+            <button onclick="location.href='/write.do'">글쓰기</button>
+        </td>
+    </tr>
 </table>
 <a href="write.do">a 태그 글쓰기</a>
+<button onclick="location.href='/'">홈으로</button>
 
 </body>
 </html>

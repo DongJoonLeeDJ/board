@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
-import static com.kb.www.common.RegExp.PAGE_NUM;
+import static com.kb.www.common.RegExp.ARTICLE_NUM;
 
 public class ArticleDetailAction implements Action {
     @Override
@@ -18,7 +18,7 @@ public class ArticleDetailAction implements Action {
 
         String num = request.getParameter("num");   //list.jsp
         //글 번호 유효성검사,RegExp = 글 번호 유효성 검사
-        if (num == null||num.equals("")|| !RegExp.checkString(PAGE_NUM,num)) {
+        if (num == null||num.equals("")|| !RegExp.checkString(ARTICLE_NUM,num)) {
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<script>alert('잘못된 접근입니다.');history.back();</script>");
@@ -47,7 +47,7 @@ public class ArticleDetailAction implements Action {
         }
 
         ActionForward forward = new ActionForward();
-        request.setAttribute("detail", vo);
+        request.setAttribute("vo", vo);
         forward.setPath("/views/detail.jsp");
 
         return forward;

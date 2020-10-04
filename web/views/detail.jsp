@@ -1,14 +1,15 @@
 <%@ page import="com.kb.www.vo.ArticleVo" %>
+<%@ page import="com.kb.www.common.LoginManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ArticleVo vo = (ArticleVo) request.getAttribute("detail");
+    ArticleVo vo = (ArticleVo) request.getAttribute("vo");
+    LoginManager lm=LoginManager.getInstance();
+    String id=lm.getMemberId(session);
 %>
 <html>
 <head>
     <meta charset="UTF-8">
-    <style>
-
-    </style>
+    <title>상세보기</title>
 </head>
 <body>
 <table style="border: 1px solid cadetblue; text-align: center; margin: auto">
@@ -30,7 +31,10 @@
     </tr>
 </table>
 <button onclick="location.href='/list.do'">뒤로 가기</button>
+<% //세션아이디와 vo아이디 일치하면
+    if (id.equals(vo.getId())) { %>
 <button onclick="location.href='/update.do?num=<%=vo.getArticleNum()%>'">수정</button>
 <button onclick="location.href='/delete.do?num=<%=vo.getArticleNum()%>'">삭제</button>
+<% } %>
 </body>
 </html>
