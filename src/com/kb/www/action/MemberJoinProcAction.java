@@ -44,7 +44,7 @@ public class MemberJoinProcAction implements Action {
             return null;
         }
 
-        //dto에 값 넣음
+        //멤버vo에 값 set
         MemberVo memberVo = new MemberVo();
         memberVo.setId(id);
         memberVo.setPwd(BCrypt.hashpw(pwd,BCrypt.gensalt(12)));
