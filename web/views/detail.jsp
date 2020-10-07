@@ -5,6 +5,8 @@
     ArticleVo vo = (ArticleVo) request.getAttribute("vo");
     LoginManager lm=LoginManager.getInstance();
     String id=lm.getMemberId(session);
+
+    String nowPage = request.getParameter("pn");
 %>
 <html>
 <head>
@@ -30,11 +32,11 @@
         <td><%=vo.getArticleContent()%></td>
     </tr>
 </table>
-<button onclick="location.href='/list.do'">뒤로 가기</button>
+<button onclick="location.href='/list.do?pn=<%=nowPage%>'">뒤로 가기</button>
 <% //세션아이디와 vo아이디 일치하면
     if (id.equals(vo.getId())) { %>
-<button onclick="location.href='/update.do?num=<%=vo.getArticleNum()%>'">수정</button>
-<button onclick="location.href='/delete.do?num=<%=vo.getArticleNum()%>'">삭제</button>
+<button onclick="location.href='/update.do?pn=<%=nowPage%>&num=<%=vo.getArticleNum()%>'">수정</button>
+<button onclick="location.href='/delete.do?pn=<%=nowPage%>&num=<%=vo.getArticleNum()%>'">삭제</button>
 <% } %>
 </body>
 </html>

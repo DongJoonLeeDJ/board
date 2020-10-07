@@ -51,7 +51,10 @@ public class ArticleListAction implements Action {
         ArrayList<ArticleVo> articleList = service.getArticleList(rowNum);
 
         ActionForward forward = new ActionForward();
+
+        request.setAttribute("pageCount",pageCount);
         request.setAttribute("list",articleList);
+
         forward.setPath("/views/list.jsp");
 
         return forward;

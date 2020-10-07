@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     ArticleVo vo = (ArticleVo) request.getAttribute("vo");
+    String nowPage = request.getParameter("pn");
 %>
 <html>
 <head>
@@ -31,7 +32,7 @@
 </head>
 <body>
 <!-- onsubmit - submit누르면 checkData함수에서 데이터유효성 검사 후 servlet으로 감-->
-<form method="post" action="/updateProc.do" onsubmit="return checkData()">
+<form method="post" action="/updateProc.do?pn=<%=nowPage%>&num=<%=vo.getArticleNum()%>" onsubmit="return checkData()">
     <table style="border: 1px solid cadetblue; text-align: center; margin: auto">
         <thead><td>글 쓰기</td></thead>
         <tr>

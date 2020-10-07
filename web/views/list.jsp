@@ -3,13 +3,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     ArrayList<ArticleVo> list = (ArrayList<ArticleVo>) request.getAttribute("list");
+    int pageCount = (int) request.getAttribute("pageCount");
+    String nowPage = request.getParameter("pn");    //현재 페이지 들고 가야함
 %>
 <html>
 <head>
     <meta charset="UTF-8">
     <script>
         function showDetail(num) {
-            location.href = "/detail.do?num=" + num;
+            location.href = "/detail.do?pn=" + <%=nowPage%> + "&num=" + num;
         }
 
     </script>
@@ -27,11 +29,16 @@
     <% if (list.size() > 0) {%>
     <% for (int i = 0; i < list.size(); i++) { %>
     <tr>
-        <td><%=list.get(i).getArticleNum()%></td>
-        <td onclick="showDetail(<%=list.get(i).getArticleNum()%>)"><%=list.get(i).getArticleTitle()%></td>
-        <td><%=list.get(i).getHit()%></td>
-        <td><%=list.get(i).getId() %></td>
-        <td><%=list.get(i).getWriteDate()%></td>
+        <td><%=list.get(i).getArticleNum()%>
+        </td>
+        <td onclick="showDetail(<%=list.get(i).getArticleNum()%>)"><%=list.get(i).getArticleTitle()%>
+        </td>
+        <td><%=list.get(i).getHit()%>
+        </td>
+        <td><%=list.get(i).getId() %>
+        </td>
+        <td><%=list.get(i).getWriteDate()%>
+        </td>
     </tr>
     <% } %>
     <% } else { %>
@@ -39,6 +46,15 @@
         <td>게시글이 없습니다.</td>
     </tr>
     <% } %>
+    <%
+        //페이지번호 1부터 페이지번호까지
+        for (int i = 1; i <= pageCount; i++) {
+    %>
+    <span><a href="/list.do?pn=<%=i%>"><%=i%></a>
+    </span>
+    <% } %>
+
+
     <tr>
         <td>
             <button onclick="location.href='/write.do'">글쓰기</button>
