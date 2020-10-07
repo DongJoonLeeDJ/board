@@ -35,8 +35,29 @@ public class BoardDAO {
         this.con = con;
     }
 
+    //글 총 개수 구하기 (페이징)
+    public int getArticleCount() {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int count = 0;
+
+        try {
+            pstmt = con.prepareStatement("select count(*) from board");
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1); //첫번째 조회한거 = count
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            close(rs);
+            close(pstmt);
+        }
+        return count;
+    }
+
     //글 목록 쿼리
-    public ArrayList<ArticleVo> getArticleList() {
+    public ArrayList<ArticleVo> getArticleList(int rowNum) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         //리스트 객체 생성
@@ -51,7 +72,10 @@ public class BoardDAO {
                     ",b.hit" +
                     ",b.writeDate" +
                     ",b.updateDate" +
-                    ",b.deleteDate from board b inner join member m on b.mb_sq = m.sq");
+                    ",b.deleteDate " +
+                    "from board b inner join member m on b.mb_sq = m.sq order by num desc " +
+                    "limit ?,10 ");
+            pstmt.setInt(1, rowNum);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 ArticleVo vo = new ArticleVo();
@@ -286,24 +310,24 @@ public class BoardDAO {
     }
 
     //글 번호에 해당하는 member의 id값 가져오는 메소드
-    public String getWriterId(int num){
+    public String getWriterId(int num) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String id = null;
 
         try {
-            pstmt=con.prepareStatement("select m.id " +
-                                            "from board b " +
-                                            "inner join member m on b.mb_sq = m.sq " +
-                                            "where num=?");
-            pstmt.setInt(1,num);
-            rs=pstmt.executeQuery();
-            while(rs.next()){
-                id=rs.getString("id"); //멤버 id구해서 string에 담음
+            pstmt = con.prepareStatement("select m.id " +
+                    "from board b " +
+                    "inner join member m on b.mb_sq = m.sq " +
+                    "where num=?");
+            pstmt.setInt(1, num);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                id = rs.getString("id"); //멤버 id구해서 string에 담음
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             close(rs);
             close(pstmt);
         }
@@ -311,26 +335,26 @@ public class BoardDAO {
     }
 
     //아직 이해못함...
-    public ArrayList<MemberHistoryVo> getMemberHistory(String id){
+    public ArrayList<MemberHistoryVo> getMemberHistory(String id) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         ArrayList<MemberHistoryVo> list = new ArrayList<>();
         try {
-            pstmt=con.prepareStatement("select mh.evt_type, mh.dttm " +
-                                            "from member m " +
-                                            "left join member_history mh on m.sq = mh.mb_sq " +
-                                            "where id=?");
-            pstmt.setString(1,id);
-            rs= pstmt.executeQuery();
-            while(rs.next()){
+            pstmt = con.prepareStatement("select mh.evt_type, mh.dttm " +
+                    "from member m " +
+                    "left join member_history mh on m.sq = mh.mb_sq " +
+                    "where id=?");
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
                 MemberHistoryVo vo = new MemberHistoryVo();
                 vo.setEvt_type(rs.getInt("evt_type"));
                 vo.setDttm(rs.getString("dttm"));
                 list.add(vo);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             close(rs);
             close(pstmt);
         }

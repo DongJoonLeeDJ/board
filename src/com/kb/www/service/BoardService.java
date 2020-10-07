@@ -12,15 +12,23 @@ import java.util.ArrayList;
 import static com.kb.www.common.JdbcUtil.*;
 
 public class BoardService {
+    public int getArticleCount() {
+        BoardDAO dao = BoardDAO.getInstance();
+        Connection con = getConnection();
+        dao.setConnection(con);
 
+        int count = dao.getArticleCount();
+        close(con);
+        return count;
+    }
     //글 목록 메소드
-    public ArrayList<ArticleVo> getArticleList() {
+    public ArrayList<ArticleVo> getArticleList(int rowNum) {
         //세팅
         BoardDAO dao = BoardDAO.getInstance();
         Connection con = getConnection();
         dao.setConnection(con);
 
-        ArrayList<ArticleVo> list = dao.getArticleList();   //DAO한테 다시 떠넘김
+        ArrayList<ArticleVo> list = dao.getArticleList(rowNum);   //DAO한테 다시 떠넘김
 
         close(con);
 

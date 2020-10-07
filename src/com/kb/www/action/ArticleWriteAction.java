@@ -3,12 +3,9 @@ package com.kb.www.action;
 import com.kb.www.common.Action;
 import com.kb.www.common.ActionForward;
 import com.kb.www.common.LoginManager;
-import com.kb.www.service.BoardService;
-import com.kb.www.vo.ArticleVo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 public class ArticleWriteAction implements Action {

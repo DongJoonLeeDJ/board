@@ -8,7 +8,7 @@
 <head>
 </head>
 <body>
-<a href="/list.do">게시판 보기</a>
+<a href="/list.do?pn=1">게시판 보기</a>
 <% //세션 null이면 회원가입,로그인 보이게
     if (id == null) { %>
 <a href="/join.do">회원 가입</a>
